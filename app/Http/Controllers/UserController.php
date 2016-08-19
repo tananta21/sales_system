@@ -12,6 +12,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
+//ESTA CLASE HACE REFERENCIA A LOS USUARIOS DEL SISTEMA
 class UserController extends Controller
 {
     protected $repoTipoUsuario;

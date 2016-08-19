@@ -13,7 +13,7 @@ class CategoriaTableSeeder extends Seeder
     public function run()
     {
         Categoria::create(array(
-            'descripcion'=>'vacio'
+            'descripcion'=>'--------'
         ));
         Categoria::create(array(
             'descripcion'=>'llantas'

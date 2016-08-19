@@ -2,31 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: LENOVO
- * Date: 25/04/2016
- * Time: 22:54
+ * Date: 20/07/2016
+ * Time: 16:58
  */
 
-namespace App\Core\User;
+namespace App\Core\DetalleVentaProducto;
+
 
 use App\Core\Contracts\BaseRepositoryInterface;
-use App\User;
 
-class UserRepository implements BaseRepositoryInterface
+class DetalleVentaProductoRepository implements BaseRepositoryInterface
 {
-//    private $model;
-//
-//
-
 
     public function all()
     {
-
+        // TODO: Implement all() method.
     }
-    public function allNroDocumento()
-    {
-        return User::all('nro_documento');
-    }
-
 
     /**
      * @param array $attributes
@@ -34,14 +25,7 @@ class UserRepository implements BaseRepositoryInterface
      */
     public function create(array $attributes)
     {
-
-    }
-
-    public function addUser($tipo_usuario_id, $estado_civil_id, $grado_instruccion_id,
-                            $ocupacion_id, $ubigeo_id, $nro_documento, $name, $apellido,
-                            $sexo, $telefono, $email, $password)
-    {
-
+        // TODO: Implement create() method.
     }
 
     /**
@@ -70,5 +54,16 @@ class UserRepository implements BaseRepositoryInterface
     public function deleted($id)
     {
         // TODO: Implement deleted() method.
+    }
+
+    public function addDetalleVenta($nro_venta,$id, $price, $qy)
+    {
+        $venta = new DetalleVentaProducto();
+        $venta->venta_id = $nro_venta;
+        $venta->producto_id = $id;
+        $venta->precio = $price;
+        $venta->cantidad = $qy;
+        $venta->save();
+
     }
 }

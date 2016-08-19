@@ -13,7 +13,7 @@ class ModeloTableSeeder extends Seeder
     public function run()
     {
         Modelo::create(array(
-            'descripcion'=>'vacio'
+            'descripcion'=>'--------'
         ));
         Modelo::create(array(
             'descripcion'=>'pequeño'

@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
             'grado_instruccion_id'  => 1,
             'ocupacion_id'  => 1,
             'ubigeo_id'  => 1,
-            'nro_documento'=>'72322246',
+            'nro_documento'=>'01145358',
             'name'=>'kevin anthony',
             'apellido'=>'tananta del aguila',
             'sexo'=> 'm',

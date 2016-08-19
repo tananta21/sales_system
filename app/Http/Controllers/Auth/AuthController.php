@@ -71,4 +71,5 @@ class AuthController extends Controller
         return View('auth.login');
     }
 
+
 }

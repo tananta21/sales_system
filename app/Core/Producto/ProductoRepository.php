@@ -10,11 +10,28 @@ namespace App\Core\Producto;
 
 use App\Core\Contracts\BaseRepositoryInterface;
 
-class ProductoRepository implements BaseRepositoryInterface {
+class ProductoRepository implements BaseRepositoryInterface
+{
+    protected $producto;
+
+    public function __construct(Producto $producto)
+    {
+        $this->producto = $producto;
+    }
 
     public function all()
     {
-        return Producto::all();
+        return $this->producto->paginate(10);
+    }
+    public function buscarEnVentas($dato){
+        if (trim($dato) != "") {
+            return $this->producto->select('codigo', 'nombre', 'stock_actual','precio','id')
+                ->where('codigo', $dato)
+                ->orWhere('nombre', 'like', "%$dato%")
+                ->get();
+        }
+        return array();
+
     }
 
     /**
@@ -33,7 +50,18 @@ class ProductoRepository implements BaseRepositoryInterface {
      */
     public function updated($id, array $attributes)
     {
-        // TODO: Implement updated() method.
+        $producto = Producto::find($id);
+        $producto->marca_id = $attributes['marca'];
+        $producto->categoria_id = $attributes['categoria'];
+        $producto->modelo_id = $attributes['modelo'];
+        $producto->codigo = $attributes['codigo'];
+        $producto->nombre = $attributes['nombre'];
+        $producto->descripcion = $attributes['descripcion'];
+        $producto->stock_actual = $attributes['stock_actual'];
+        $producto->stock_minimo = $attributes['stock_minimo'];
+        $producto->stock_maximo = $attributes['stock_maximo'];
+        $producto->estado = $attributes['estado'];
+        $producto->save();
     }
 
     /**
@@ -42,7 +70,8 @@ class ProductoRepository implements BaseRepositoryInterface {
      */
     public function find($id)
     {
-        // TODO: Implement find() method.
+        $producto = Producto::findOrFail($id);
+        return $producto;
     }
 
     /**
@@ -51,10 +80,11 @@ class ProductoRepository implements BaseRepositoryInterface {
      */
     public function deleted($id)
     {
-        // TODO: Implement deleted() method.
+        Producto::destroy($id);
     }
 
-    public function addProducto($inputs){
+    public function addProducto($inputs)
+    {
         $producto = new Producto();
         $producto->marca_id = $inputs['marca'];
         $producto->categoria_id = $inputs['categoria'];
@@ -65,6 +95,20 @@ class ProductoRepository implements BaseRepositoryInterface {
         $producto->stock_actual = $inputs['stock_actual'];
         $producto->stock_minimo = $inputs['stock_minimo'];
         $producto->stock_maximo = $inputs['stock_maximo'];
+        $producto->estado = $inputs['estado'];
         $producto->save();
     }
+
+    public function buscarProducto($data)
+    {
+        return $this->producto
+            ->codigo($data['codigo'])
+            ->nombre($data['nombre'])
+            ->marca($data['marca'])
+            ->categoria($data['categoria'])
+            ->modelo($data['modelo'])
+            ->paginate();
+    }
+
+
 }

@@ -24,7 +24,33 @@ Route::group(['prefix'=>'sales', 'middleware' => 'auth' ], function(){
 
     //PRODUCTOS
     Route::get('/productos', 'ProductoController@index' );
+//    crear producto
     Route::post('/productos/register','ProductoController@create' );
+//    editar producto
+    Route::get('/productos/editar/{id}', 'ProductoController@edit' );
+//    actualizar producto
+    Route::get('/productos/actualizar/{id}', 'ProductoController@update' );
+//    eliminar producto
+    Route::get('/productos/eliminar/{id}', 'ProductoController@destroy' );
+// buscar Producto
+    Route::get('/productos/buscar','ProductoController@buscarProducto');
+
+//    VENTAS
+    Route::get('/ventas','ventaController@index');
+
+//    buscar producto en venta
+    Route::post('/venta/nueva',[
+        'as'=>'venta.nueva',
+        'uses'=>'VentaController@buscarProducto'
+    ]);
+
+    //registrar venta
+    Route::get('/ventas/registrar',[
+        'as'=> 'registrar.venta',
+        'uses'=>'VentaController@create']);
+
+    //COMPRAS
+    Route::get('/compras','CompraController@index');
 
 
 });
@@ -35,4 +61,7 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
 
-
+Route::post( '/settings', array(
+    'as' => 'settings.create',
+    'uses' => 'LegajosController@buscar'
+) );

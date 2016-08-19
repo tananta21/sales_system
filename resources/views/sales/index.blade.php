@@ -14,12 +14,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="{{url('/')}}/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">--}}
+    <link rel="stylesheet" href="{{url('/')}}/font-awesome/css/font-awesome.min.css"/>
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">--}}
+    <link rel="stylesheet" href="{{url('/')}}/plugins/ionicons.min.css"/>
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('/')}}/dist/css/AdminLTE.min.css">
+    <!-- jQuery 2.2.0 -->
+    <script src="{{url('/')}}/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="{{url('/')}}/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="{{url('/')}}/dist/js/app.min.js"></script>
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
@@ -29,8 +36,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <![endif]-->
 </head>
 <!--
@@ -186,30 +193,30 @@ desired effect
                                 <img src="{{url('/')}}/dist/img/perfil2.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    {{Auth::user()->name}}
+                                    <small>System Engineer</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+                            {{--<li class="user-body">--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Followers</a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Sales</a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Friends</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<!-- /.row -->--}}
+                            {{--</li>--}}
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
+                                {{--<div class="pull-left">--}}
+                                    {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}
+                                {{--</div>--}}
                                 <div class="pull-right">
                                     <a href="/auth/logout" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
@@ -265,20 +272,22 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="/sales/users" >Usuarios</a></li>
                         <li><a href="/sales/productos" >Productos</a></li>
+                        <li><a href="/sales/productos" >Proveedores</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Compras</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                        <li><a href="/sales/compras">Nueva Compra</a></li>
+                        <li><a href="#">Lista Compras</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                        <li><a href="/sales/ventas">Nueva Venta</a></li>
+                        <li><a href="#">Lista Ventas</a></li>
+                        <li><a href="#">Clientes</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -304,26 +313,6 @@ desired effect
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
-        {{--<script>--}}
-            {{--$(document).ready(function()--}}
-            {{--{--}}
-                {{--$("#boton").click(function(){--}}
-                    {{--$.get("sales/users", function(htmlexterno){--}}
-                        {{--$("#contenido").html(htmlexterno);--}}
-                    {{--});--}}
-                {{--});--}}
-            {{--});--}}
-        {{--</script>--}}
         <!-- Main content -->
         <section class="content" style="background: skyblue">
             @yield('content')
@@ -422,12 +411,6 @@ desired effect
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 2.2.0 -->
-<script src="{{url('/')}}/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{{url('/')}}/bootstrap/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{url('/')}}/dist/js/app.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

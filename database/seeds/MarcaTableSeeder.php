@@ -13,7 +13,7 @@ class MarcaTableSeeder extends Seeder
     public function run()
     {
         Marca::create(array(
-            'descripcion'=>'vacio'
+            'descripcion'=>'--------'
         ));
         Marca::create(array(
             'descripcion'=>'Yamaha'

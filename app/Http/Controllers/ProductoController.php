@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Core\Categoria\CategoriaRepository;
 use App\Core\Marca\MarcaRepository;
 use App\Core\Modelo\ModeloRepository;
+use App\Core\Producto\Producto;
 use App\Core\Producto\ProductoRepository;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 
 class ProductoController extends Controller
 {
@@ -20,11 +18,12 @@ class ProductoController extends Controller
     protected $repoModelo;
     protected $repoProducto;
 
-    public function __construct(){
-        $this->repoMarca = new MarcaRepository();
-        $this->repoCategoria = new CategoriaRepository();
+    public function __construct(MarcaRepository $marca, CategoriaRepository $categoria, ProductoRepository $producto)
+    {
+        $this->repoMarca = $marca;
+        $this->repoCategoria = $categoria;
         $this->repoModelo = new ModeloRepository();
-        $this->repoProducto = new ProductoRepository();
+        $this->repoProducto = $producto;
     }
 
     public function index()
@@ -33,7 +32,7 @@ class ProductoController extends Controller
         $categorias = $this->repoCategoria->all();
         $modelos = $this->repoModelo->all();
         $productos = $this->repoProducto->all();
-        return View('sales.mantenimientos.productos',compact('productos','marcas','categorias','modelos'));
+        return View('sales.mantenimientos.productos', compact('productos', 'marcas', 'categorias', 'modelos'));
     }
 
     /**
@@ -51,7 +50,7 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -59,48 +58,57 @@ class ProductoController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $marcas = $this->repoMarca->all();
+        $categorias = $this->repoCategoria->all();
+        $modelos = $this->repoModelo->all();
+        $productos = $this->repoProducto->all();
+        $editarProducto = $this->repoProducto->find($id);
+        return View('sales.mantenimientos.editarproducto', compact('productos', 'marcas', 'categorias', 'modelos', 'editarProducto'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $actualizarProducto = $request->all();
+        $producto = $this->repoProducto->updated($id, $actualizarProducto);
+        return redirect()->action('ProductoController@index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $eliminarProducto = $this->repoProducto->deleted($id);
+        return redirect()->action('ProductoController@index');
     }
+
+    public function buscarProducto(Request $request)
+    {
+        $marcas = $this->repoMarca->all();
+        $categorias = $this->repoCategoria->all();
+        $modelos = $this->repoModelo->all();
+        //buscar Producto
+        $variables = $request->all();
+        $productos = $this->repoProducto->buscarProducto($variables);
+        return View('sales.mantenimientos.productos', compact('productos', 'marcas', 'categorias', 'modelos'));
+    }
+
 }

@@ -7,10 +7,10 @@
         <div class="box-header">
                 <a class="btn btn-w-m btn-primary" id="boton" >Registrar Usuario</a>
                  <div id="mielemento" style="display: none" >
-                        <div  class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Please Introduce the Dates of User</h3>
-                    </div>
+                     <div  class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Please Introduce the Dates of User</h3>
+                        </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 {!! Form::open(['action' => 'UserController@create','method' => 'post', 'class' => 'form-horizontal']) !!}
@@ -152,8 +152,6 @@
                     });
 
                 });
-
-
             </script>
 
 
